@@ -32,7 +32,7 @@ class SLLI(c: InstructionDecoder) extends DecoderTestBase(c) {
     expect(c.io.basic.out.registers.rs1_sel, rs1)
     expect(c.io.basic.out.registers.rs2_sel, shamt)
     expect(c.io.basic.out.immediate, new_imm)
-    expect (c.io.basic.out.trap, trap)
+    expect(c.io.basic.out.trap, trap)
     expect(c.io.basic.out.alu.op, AluOps.sll)
     expect(c.io.basic.out.sel_rf_wb, AdeptControlSignals.result_alu)
     expect(c.io.basic.out.sel_operand_a, AdeptControlSignals.sel_oper_A_rs1)
