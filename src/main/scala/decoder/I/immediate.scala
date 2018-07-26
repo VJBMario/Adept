@@ -17,7 +17,7 @@ private class ImmediateControlSignals(override val config: AdeptConfig,
     val rs1_sel = instruction(19, 15)
     val rs2_sel = instruction(24, 20)
     val imm     = instruction(31, 20)
-    val msb_imm = instruction(31, 25)
+    val msb_imm = imm(11, 5)
 
     io.registers.we      := true.B
     io.registers.rsd_sel := rsd_sel
@@ -35,9 +35,12 @@ private class ImmediateControlSignals(override val config: AdeptConfig,
     io.sel_operand_a     := core_ctl_signals.sel_oper_A_rs1
     io.sel_operand_b     := core_ctl_signals.sel_oper_B_imm
 
-    // Check if the 7 MSB are conform with spec when the operation is a shit immediate 
-    when ((msb_imm =/= 0.U && alu_op === alu_ops.sll) || ((msb_imm =/= "b0100000".U && msb_imm =/= 0.U) && alu_op === alu_ops.srl)){
-      io.trap := true.B         
+    // Check if the 7 MSB are conform with spec when the operation is a shit
+    // immediate 
+    when ((msb_imm =/= 0.U && alu_op === alu_ops.sll) ||
+	 ((msb_imm =/= "b0100000".U && msb_imm =/= 0.U)
+	 && alu_op === alu_ops.srl)){
+      io.trap := true.B
     } .otherwise {
       io.trap := false.B
     }

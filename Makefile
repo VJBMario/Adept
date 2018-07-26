@@ -16,6 +16,8 @@ test-verilator:
 test-basic:
 	sbt 'test:runMain $(PACKAGE).$(MODULE)Main --program-file=$(PROG)'
 
+test-module:
+	sbt 'testOnly $(PACKAGE).$(MODULE)Tester'
 repl:
 	sbt 'test:runMain $(PACKAGE).$(MODULE)Repl'
 
