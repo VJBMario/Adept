@@ -7,6 +7,10 @@ import adept.config.AdeptConfig
 
 import adept.decoder.tests.imm._
 
+class DecoderTestBase(c: InstructionDecoder) extends PeekPokeTester(c) {
+  val op_code = new OpCodes
+  val slli = 1  //b001
+}
 
 class DecoderUnitTesterAll(e: InstructionDecoder) extends PeekPokeTester(e) {
     // Immediate Type Instructions

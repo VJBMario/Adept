@@ -18,6 +18,7 @@ test-basic:
 
 test-module:
 	sbt 'testOnly $(PACKAGE).$(MODULE)Tester'
+
 repl:
 	sbt 'test:runMain $(PACKAGE).$(MODULE)Repl'
 

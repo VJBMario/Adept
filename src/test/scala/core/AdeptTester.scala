@@ -53,6 +53,7 @@ class AdeptUnitTester(c: Adept, programFileName: String) extends PeekPokeTester(
   }
 
   if (peek(c.io.trap) == 1) {
+    printf ("Trap\n")
     step (1)
   }
 }

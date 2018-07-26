@@ -35,7 +35,7 @@ private class ImmediateControlSignals(override val config: AdeptConfig,
     io.sel_operand_a     := core_ctl_signals.sel_oper_A_rs1
     io.sel_operand_b     := core_ctl_signals.sel_oper_B_imm
 
-    // Check if the 7 MSB are conform with spec when the operation is a shit
+    // Check if the 7 MSB are conform with spec when the operation is a shift
     // immediate 
     when ((msb_imm =/= 0.U && alu_op === alu_ops.sll) ||
 	 ((msb_imm =/= "b0100000".U && msb_imm =/= 0.U)
