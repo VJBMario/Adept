@@ -23,6 +23,10 @@ for test in $(ls $HEXS); do
     # Run test in verilator
     make test-verilator PROG=$HEXS/$test > $LOG_FOLDER/verilator_$test_$(date +%d-%m-%Y)
     # Cut the log and take just the output that we want
-    cat $LOG_FOLDER/verilator_$test_$(date +%d-%m-%Y) | tac | grep "PC = " -m 1 -B32 | sed 's/\[.*\] \[.*\] //g' | tac > $LOG_FOLDER/verilator_result_$test_$(date +%d-%m-%Y)
-    diff -w $LOG_FOLDER/verilator_result_$test_$(date +%d-%m-%Y) $RESULTS_FOLDER/${test%.hex}/verilator
+    if grep -q 'Trap' $LOG_FOLDER/verilator_$test_$(date +%d-%m-%Y); then
+	tac $LOG_FOLDER/verilator_$test_$(date +%d-%m-%Y) | grep "Trap" -m 1 -B33 | sed 's/\[.*\] \[.*\] //g' | tac > $LOG_FOLDER/verilator_result_$test_$(date +%d-%m-%Y)
+	else
+		tac $LOG_FOLDER/verilator_$test_$(date +%d-%m-%Y) | grep "PC = " -m 1 -B32 | sed 's/\[.*\] \[.*\] //g' | tac > $LOG_FOLDER/verilator_result_$test_$(date +%d-%m-%Y)
+    fi
+	diff -w $LOG_FOLDER/verilator_result_$test_$(date +%d-%m-%Y) $RESULTS_FOLDER/${test%.hex}/verilator
 done
