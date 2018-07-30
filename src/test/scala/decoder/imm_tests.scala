@@ -12,11 +12,8 @@ import adept.core.AdeptControlSignals
 ////////////////////////////////////////////////
 class ADDI(c: InstructionDecoder) extends DecoderTestBase(c) {
   private def ADDI(rs1: Int, imm: Int, rd: Int) {
-    val instr = (((4095 & imm) << 20) | ((31 & rs1) << 15) | ((31 & rd) << 7) | op_code.Immediate.litValue())
-    val new_imm = if ((imm >> 11) == 1)
-                    ((0xFFFFF << 12) | imm)
-                  else
-                    imm
+    val instr = ((imm << 20) | ((31 & rs1) << 15) | ((31 & rd) << 7) | op_code.Immediate.litValue())
+    val new_imm = signExtension (imm, 12)
     poke(c.io.stall_reg, false)
     poke(c.io.basic.instruction, instr)
 
@@ -47,14 +44,12 @@ class SLLI(c: InstructionDecoder) extends DecoderTestBase(c) {
   private def SLLI(rs1: Int, imm: Int, rd: Int) {
     val instr = ((imm << 20) | ((31 & rs1) << 15) | (slli << 12) | ((31 & rd) << 7) | op_code.Immediate.litValue())   
     val shamt = 31 & imm
-    val new_imm = if ((imm >> 11) == 1)
-                    ((0xFFFFF << 12) | imm)
-                  else 
-                    imm
-    val trap = if ((imm >> 5) != 0)
+    val new_imm = signExtension (imm, 12)
+    val trap = if ((imm >> 5) != 0) {
                  1
-               else
+               } else {
                  0
+               }
     poke(c.io.stall_reg, false)                 
     poke(c.io.basic.instruction, instr)
 

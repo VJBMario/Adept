@@ -9,7 +9,15 @@ import adept.decoder.tests.imm._
 
 class DecoderTestBase(c: InstructionDecoder) extends PeekPokeTester(c) {
   val op_code = new OpCodes
-  val slli = 1  //b001 
+  val slli = Integer.parseInt("001", 2)
+
+  def signExtension (imm: Int, nbits: Int) : Int = {
+    if ((imm >> (nbits-1)) == 1) {
+      ((0xFFFFFFFF << nbits) | imm)
+    } else {
+      imm
+    }
+  }
 }
 
 class DecoderUnitTesterAll(e: InstructionDecoder) extends PeekPokeTester(e) {
