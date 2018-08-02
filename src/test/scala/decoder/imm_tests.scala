@@ -13,7 +13,7 @@ import adept.core.AdeptControlSignals
 class ADDI(c: InstructionDecoder) extends DecoderTestBase(c) {
   private def ADDI(rs1: Int, imm: Int, rd: Int) {
     val instr = ((imm << 20) | ((31 & rs1) << 15) | ((31 & rd) << 7) | op_code.Immediate.litValue())
-    val new_imm = signExtension (imm, 12)
+    val new_imm = signExtension(imm, 12)
     poke(c.io.stall_reg, false)
     poke(c.io.basic.instruction, instr)
 
