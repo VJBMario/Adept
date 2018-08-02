@@ -31,8 +31,8 @@ class ADDI(c: InstructionDecoder) extends DecoderTestBase(c) {
   }
 
   for (i <- 0 until 100) {
-    var rs1 = rnd.nextInt(32)
-    var imm = rnd.nextInt(4096)
+    val rs1 = rnd.nextInt(32)
+    val imm = rnd.nextInt(4096)
     val rd  = rnd.nextInt(32)
 
     ADDI(rs1, imm, rd)
@@ -60,8 +60,8 @@ class SLTI(c: InstructionDecoder) extends DecoderTestBase(c) {
   }
 
   for (i <- 0 until 100) {
-    var rs1 = rnd.nextInt(32)
-    var imm = rnd.nextInt(4096)
+    val rs1 = rnd.nextInt(32)
+    val imm = rnd.nextInt(4096)
     val rd  = rnd.nextInt(32)
 
     SLTI(rs1, imm, rd)
@@ -96,8 +96,8 @@ class SLLI(c: InstructionDecoder) extends DecoderTestBase(c) {
   }
 
   for (i <- 0 until 100) {
-    var rs1 = rnd.nextInt(32)
-    var imm = rnd.nextInt(4096)
+    val rs1 = rnd.nextInt(32)
+    val imm = rnd.nextInt(4096)
     val rd  = rnd.nextInt(32)
     
     SLLI(rs1, imm, rd)
