@@ -10,9 +10,9 @@ import adept.decoder.tests.reg._
 
 class DecoderTestBase(c: InstructionDecoder) extends PeekPokeTester(c) {
   val op_code = new OpCodes
-  val slli = Integer.parseInt("001", 2)
-  val slti = Integer.parseInt("010", 2)
-  val sltiu = Integer.parseInt("011", 2)
+  val sll = Integer.parseInt("001", 2)
+  val slt = Integer.parseInt("010", 2)
+  val sltu = Integer.parseInt("011", 2)
   val funct7alu = Integer.parseInt("0100000", 2);
 
   def signExtension(imm: Int, nbits: Int) : Int = {
@@ -55,7 +55,7 @@ class DecoderTester extends ChiselFlatSpec {
   }
   "Decoder" should s"test SLTIU instruction (with verilator)" in {
     Driver(() => new InstructionDecoder(config), "verilator") {
-      e => new SLLI(e)
+      e => new SLTIU(e)
     } should be (true)
   }
   "Decoder" should s"test SLLI instruction (with verilator)" in {
