@@ -10,10 +10,17 @@ import adept.decoder.tests.reg._
 
 class DecoderTestBase(c: InstructionDecoder) extends PeekPokeTester(c) {
   val op_code = new OpCodes
+<<<<<<< HEAD
   val sll = Integer.parseInt("001", 2)
   val slt = Integer.parseInt("010", 2)
   val sltu = Integer.parseInt("011", 2)
   val xor = Integer.parseInt("100", 2)
+  val or = Integer.parseInt("110", 2)
+=======
+  val slli = Integer.parseInt("001", 2)
+  val slti = Integer.parseInt("010", 2)
+  val sltiu = Integer.parseInt("011", 2)
+>>>>>>> 4f8dbce... Create SLTIU Chisel flat spec tests for decoder
   val funct7alu = Integer.parseInt("0100000", 2);
 
   def signExtension(imm: Int, nbits: Int) : Int = {
@@ -31,7 +38,11 @@ class DecoderUnitTesterAll(e: InstructionDecoder) extends PeekPokeTester(e) {
     new SLTI(e)
     new SLLI(e)
     new SLTIU(e)
+<<<<<<< HEAD
     new XORI(e)
+    new ORI(e)
+=======
+>>>>>>> 4f8dbce... Create SLTIU Chisel flat spec tests for decoder
 
     // Register Type Instructions
     new ADD(e)
@@ -58,6 +69,11 @@ class DecoderTester extends ChiselFlatSpec {
   "Decoder" should s"test SLTIU instruction (with verilator)" in {
     Driver(() => new InstructionDecoder(config), "verilator") {
       e => new SLTIU(e)
+    } should be (true)
+  }
+  "Decoder" should s"test ORI instruction (with verilator)" in {
+    Driver(() => new InstructionDecoder(config), "verilator") {
+      e => new ORI(e)
     } should be (true)
   }
   "Decoder" should s"test XORI instruction (with verilator)" in {
